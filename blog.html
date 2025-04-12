@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Blog - Livin' La Vida Moho</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="js/header-loader.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <main class="blog-container">
+        <section class="blog-hero">
+            <h1>Our Travel Map</h1>
+            <p class="subtitle">Click on markers to read about our adventures</p>
+        </section>
+
+        <section class="map-container">
+            <div id="travel-map"></div>
+            <div id="blog-post" class="blog-post hidden">
+                <button class="close-btn" onclick="closeBlogPost()">×</button>
+                <div id="post-content"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/blog-map.js"></script>
+</body>
+</html> 

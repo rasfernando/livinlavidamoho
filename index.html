@@ -3,190 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livin' La Vida Moho | Urban Comfort Essentials</title>
+    <title>Livin' La Vida Moho | Travel Comfort</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Coastal Color Scheme */
         :root {
-            --navy: #0A2342;
-            --cream: #F4F1ED;
-            --taupe: #C4A287;
-            --gold: #B8860B;
-            --slate: #495867;
+            --sand: #F4E9DC;
+            --sea-blue: #2B5876;
+            --coral: #FF7F6A;
+            --driftwood: #A58F7B;
+            --seafoam: #88B2CC;
         }
 
         body {
-            background: var(--cream);
-            color: var(--navy);
-            font-family: 'Neue Haas Unica', system-ui, sans-serif;
+            background: var(--sand);
+            margin: 0;
+            font-family: 'Avenir Next', system-ui, sans-serif;
         }
 
+        /* Fixed Header */
+        header {
+            background: rgba(255,255,255,0.9);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--sea-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
         .hero {
-            height: 90vh;
-            background: linear-gradient(rgba(10,35,66,0.1), rgba(10,35,66,0.3)),
-                       url('https://images.unsplash.com/photo-1603487742131-4160ec999306') center/cover;
+            height: 70vh;
+            background: linear-gradient(rgba(43,88,118,0.2), rgba(43,88,118,0.4)),
+                       url('https://images.unsplash.com/photo-1506929562872-bb421503ef21') center/cover;
             display: flex;
             align-items: center;
-            padding: 0 10%;
-        }
-
-        .collection-header {
+            justify-content: center;
+            margin-top: 60px;
             text-align: center;
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--taupe);
-            margin: 0 10%;
+            color: white;
         }
 
+        /* Products Grid */
         .products-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .product-card {
             background: white;
-            position: relative;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
         }
 
         .product-image {
-            height: 380px;
+            height: 300px;
             background-size: cover;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.03);
+            background-position: center;
         }
 
         .product-info {
             padding: 1.5rem;
-            background: rgba(255,255,255,0.9);
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
+            position: relative;
         }
 
-        .product-card:hover .product-info {
-            transform: translateY(0);
+        .product-price {
+            color: var(--coral);
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
         }
 
-        .product-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gold);
+        .product-features {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .feature-pill {
+            background: var(--seafoam);
             color: white;
             padding: 0.3rem 0.8rem;
-            font-size: 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
         }
 
-        .material-details {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--cream);
+        button {
+            background: var(--coral);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="#" class="logo">LLVM</a>
-        <nav>
-            <a href="#hoodies">Hoodies</a>
-            <a href="#tees">T-Shirts</a>
-            <a href="#all-weather">All-Weather</a>
-        </nav>
+        <a href="#" class="logo">🌴 Livin' La Vida Moho</a>
         <div class="cart-btn" onclick="toggleCart()">
-            <i class="fas fa-vest"></i>
+            <i class="fas fa-suitcase"></i>
             <span id="cart-count">0</span>
         </div>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Crafted Comfort</h1>
-            <p>Premium fabrics meeting urban utility</p>
+            <h1>Embrace Your Adventurous Side</h1>
+            <p>Where style meets adventure-ready functionality</p>
         </div>
     </section>
 
-    <section class="collection-header">
-        <h2>The Essentials Collection</h2>
-        <p>Each piece designed for 24/7 wear with premium Japanese fabrics and weather-resistant finishes</p>
-    </section>
-
     <section class="products-grid" id="products">
-        <!-- Updated Product Cards -->
+        <!-- Products will be inserted here -->
     </section>
 
     <script>
+        // Product Data
         const products = [
             {
                 id: 1,
-                name: "24/7 Cloud Hoodie",
-                price: 128.00,
+                name: "Sunset Hoodie",
+                price: 89.99,
                 image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633",
-                material: "Japanese Brushed Cotton",
-                weight: "Midweight 340gsm",
-                tag: "Best Seller"
+                features: ["UPF 50+ Protection", "Quick-Dry Fabric", "Hidden Pocket"]
             },
             {
                 id: 2,
-                name: "Urban Utility Parka",
-                price: 295.00,
-                image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea",
-                material: "Weatherproof Nylon Blend",
-                weight: "All-Season",
-                tag: "Stormproof"
+                name: "Beachcomber Tee",
+                price: 39.99,
+                image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
+                features: ["Organic Cotton", "Odor-Resistant", "Roll-Pack Design"]
             },
             {
                 id: 3,
-                name: "The Everyday Tee",
-                price: 48.00,
-                image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
-                material: "Organic Pima Cotton",
-                weight: "Lightweight 180gsm",
-                tag: "3-pack Available"
+                name: "Driftwood Joggers",
+                price: 79.99,
+                image: "https://images.unsplash.com/photo-1604176354204-9268737828e4",
+                features: ["Stretch Waistband", "Sand-Resistant", "Quick-Dry"]
             },
             {
                 id: 4,
-                name: "Hybrid Jogger Pant",
-                price: 98.00,
-                image: "https://images.unsplash.com/photo-1604176354204-9268737828e4",
-                material: "Technical French Terry",
-                weight: "Year-Round",
-                tag: "New Arrival"
+                name: "Tidepool Windbreaker",
+                price: 129.99,
+                image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea",
+                features: ["Water Repellent", "Packable Hood", "Secure Pockets"]
             }
         ];
 
+        // Initialize Cart
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Render Products
         function renderProducts() {
             const grid = document.getElementById('products');
             grid.innerHTML = products.map(product => `
                 <div class="product-card">
-                    ${product.tag ? `<div class="product-tag">${product.tag}</div>` : ''}
                     <div class="product-image" style="background-image: url('${product.image}')"></div>
                     <div class="product-info">
                         <h3>${product.name}</h3>
                         <p class="product-price">$${product.price.toFixed(2)}</p>
-                        <div class="material-details">
-                            <div>
-                                <small>Material</small>
-                                <p>${product.material}</p>
-                            </div>
-                            <div>
-                                <small>Weight</small>
-                                <p>${product.weight}</p>
-                            </div>
+                        <div class="product-features">
+                            ${product.features.map(feature => `
+                                <div class="feature-pill">${feature}</div>
+                            `).join('')}
                         </div>
-                        <button onclick="addToCart(${product.id})">Add to Cart</button>
+                        <button onclick="addToCart(${product.id})">Add to Suitcase</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Keep existing cart functionality from previous version
+        // Cart Functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        // Initial Render
+        renderProducts();
+        updateCart();
     </script>
 </body>
 </html>

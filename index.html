@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livin' La Vida Moho | Travel Lifestyle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Avenir Next', system-ui, sans-serif;
+        }
+
+        /* Color Scheme */
+        :root {
+            --primary-green: #2A5D45;
+            --accent-beige: #E8D8C4;
+            --dark-brown: #3E362E;
+            --light-cream: #F5F0EB;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--primary-green);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--light-cream);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 5%;
+            background: var(--light-cream);
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .product-price {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        /* Cart Styles */
+        .cart-btn {
+            background: var(--accent-beige);
+            color: var(--dark-brown);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 12px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-open {
+            right: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Livin' La Vida Moho</a>
+        <div class="cart-btn" onclick="toggleCart()">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Wander More. Worry Less.</h1>
+            <p>Premium Travel Gear for Modern Nomads</p>
+        </div>
+    </section>
+
+    <section class="products-grid" id="products">
+        <!-- Products will be dynamically inserted here -->
+    </section>
+
+    <div class="cart-sidebar" id="cart">
+        <h2>Your Adventure Bag</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">
+            <h3>Total: $<span id="cart-total">0.00</span></h3>
+            <button class="checkout-btn">Continue to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Nomad Backpack Pro",
+                price: 149.99,
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
+            },
+            {
+                id: 2,
+                name: "Traveler's Notebook Set",
+                price: 39.99,
+                image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c7e9"
+            },
+            {
+                id: 3,
+                name: "Adventure Ready Water Bottle",
+                price: 24.99,
+                image: "https://images.unsplash.com/photo-1585036156178-9b128d3a9f38"
+            },
+            {
+                id: 4,
+                name: "All-Terrain Sandals",
+                price: 79.99,
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2"
+            }
+        ];
+
+        // Cart Functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function renderProducts() {
+            const grid = document.getElementById('products');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url(${product.image})"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">$${product.price.toFixed(2)}</p>
+                        <button onclick="addToCart(${product.id})">Add to Bag</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if(existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <h4>${item.name}</h4>
+                    <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                    <button onclick="removeFromCart(${item.id})">Remove</button>
+                </div>
+            `).join('');
+            
+            document.getElementById('cart-total').textContent = cart
+                .reduce((sum, item) => sum + (item.price * item.quantity), 0)
+                .toFixed(2);
+        }
+
+        function toggleCart() {
+            document.getElementById('cart').classList.toggle('cart-open');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Initialize
+        renderProducts();
+        updateCart();
+    </script>
+</body>
+</html>
